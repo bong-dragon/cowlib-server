@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.Application;
-import com.cowlib.User;
+import com.cowlib.model.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)

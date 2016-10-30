@@ -1,5 +1,6 @@
-package com.cowlib;
+package com.cowlib.controller;
 
+import com.cowlib.model.User;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;

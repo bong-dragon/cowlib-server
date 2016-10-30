@@ -2,7 +2,7 @@ package com.cowlib.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import com.cowlib.User;
+import com.cowlib.model.User;
 
 @Mapper
 public interface AuthRepository {
