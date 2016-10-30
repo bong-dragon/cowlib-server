@@ -1,4 +1,4 @@
-package com.cowlib;
+package com.cowlib.model;
 
 public class User {
 	int id;
