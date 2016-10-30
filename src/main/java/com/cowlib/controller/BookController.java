@@ -1,6 +1,5 @@
 package com.cowlib.controller;
 
-import com.cowlib.User;
 import com.cowlib.client.DaumBookApiClient;
 import com.cowlib.model.Book;
 import org.springframework.web.bind.annotation.RequestMapping;

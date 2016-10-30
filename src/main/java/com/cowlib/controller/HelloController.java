@@ -1,4 +1,4 @@
-package com.cowlib;
+package com.cowlib.controller;
 
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
