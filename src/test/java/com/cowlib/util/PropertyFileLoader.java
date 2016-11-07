@@ -10,15 +10,14 @@ import java.util.Properties;
 
 public class PropertyFileLoader {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PropertyFileLoader.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(PropertyFileLoader.class);
 
     private PropertyFileLoader() {
     }
 
     public static Properties getProperties(String propertiesFileName) {
 
-        LOGGER.info("loading properties from class path : {}", propertiesFileName);
+        logger.info("loading properties from class path : {}", propertiesFileName);
 
         ClassPathResource propertiesFile = new ClassPathResource(propertiesFileName);
         Properties properties = new Properties();
@@ -26,7 +25,7 @@ public class PropertyFileLoader {
             try {
                 properties = PropertiesLoaderUtils.loadProperties(propertiesFile);
             } catch (IOException e) {
-                LOGGER.error("loading properties fail", e);
+                logger.error("loading properties fail", e);
             }
         }
         return properties;
