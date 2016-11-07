@@ -21,14 +21,14 @@ public class BookController {
     BookRepository bookRepository;
 
 
-    @RequestMapping("books/search")
+    @RequestMapping("/v1/books/search")
     public List<Book> search(@RequestParam(value = "q") String q) {
         List<Book> books = client.search(q);
 
         for (Book book : books) {
             Book alreaySaved = bookRepository.select(book);
 
-            if(alreaySaved == null){
+            if (alreaySaved == null) {
                 bookRepository.insert(book);
             }
         }
