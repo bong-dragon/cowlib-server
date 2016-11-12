@@ -1,4 +1,4 @@
-package com.cowlib.controller.library;
+package com.cowlib.controller;
 
 import com.cowlib.model.Borrow;
 import com.cowlib.repository.BorrowRepository;
