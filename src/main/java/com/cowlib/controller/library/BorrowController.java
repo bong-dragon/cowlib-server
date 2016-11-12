@@ -1,5 +1,6 @@
 package com.cowlib.controller.library;
 
+import com.cowlib.model.Borrow;
 import com.cowlib.repository.BorrowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,15 @@ public class BorrowController {
     @Autowired
     BorrowRepository borrowRepository;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void borrow(@PathVariable String ownerId, @RequestParam String bookId, @RequestParam String borrowerId) {
-        borrowRepository.insert(ownerId, bookId, borrowerId);
+    @PostMapping
+    public void borrow(Borrow borrow) {
+        borrow.setStatus("BORROW");
+        borrowRepository.insert(borrow);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void returnBook(@PathVariable String ownerId, @RequestParam String bookId, @RequestParam String borrowerId) {
-        borrowRepository.update(ownerId, bookId, borrowerId, "return");
+    @DeleteMapping
+    public void returnBook(Borrow borrow) {
+        borrow.setStatus("HOME");
+        borrowRepository.update(borrow);
     }
 }
