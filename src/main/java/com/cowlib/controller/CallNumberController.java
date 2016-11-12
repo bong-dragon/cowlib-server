@@ -1,4 +1,4 @@
-package com.cowlib.controller.library;
+package com.cowlib.controller;
 
 import com.cowlib.model.CallNumber;
 import com.cowlib.repository.CallNumberRepository;
