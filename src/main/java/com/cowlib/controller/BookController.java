@@ -4,6 +4,7 @@ import com.cowlib.client.DaumBookClient;
 import com.cowlib.model.Book;
 import com.cowlib.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/v1/books/search")
 public class BookController {
 
     @Autowired
@@ -21,7 +23,7 @@ public class BookController {
     BookRepository bookRepository;
 
 
-    @RequestMapping("/v1/books/search")
+    @GetMapping
     public List<Book> search(@RequestParam(value = "q") String q) {
         List<Book> books = client.search(q);
 
