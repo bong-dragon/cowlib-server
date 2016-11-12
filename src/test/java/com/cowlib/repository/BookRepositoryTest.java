@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @TestPropertySource("/application-local.properties")
-@Sql({"classpath:drop-tables.sql", "classpath:init.sql"})
+@Sql({"classpath:drop_tables.sql", "classpath:create_tables.sql"})
 public class BookRepositoryTest {
 
     @Autowired
@@ -49,7 +49,6 @@ public class BookRepositoryTest {
 
         // When
         Book select = bookRepository.select(book);
-
 
         // Then
         assertThat(select).isNotNull();
