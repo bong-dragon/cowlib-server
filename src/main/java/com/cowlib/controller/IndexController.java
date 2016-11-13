@@ -9,6 +9,6 @@ public class IndexController {
 
     @RequestMapping("/")
     public String mainPage() {
-        return "index";
+        return "redirect:/swagger-ui.html";
     }
 }
