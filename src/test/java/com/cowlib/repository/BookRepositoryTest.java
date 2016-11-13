@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @TestPropertySource("/application-local.properties")
+@Sql({"classpath:drop_tables.sql", "classpath:create_tables.sql"})
 public class BookRepositoryTest {
 
     @Autowired
@@ -47,7 +49,6 @@ public class BookRepositoryTest {
 
         // When
         Book select = bookRepository.select(book);
-
 
         // Then
         assertThat(select).isNotNull();
