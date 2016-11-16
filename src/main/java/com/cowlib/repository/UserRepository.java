@@ -1,14 +1,13 @@
 package com.cowlib.repository;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import com.cowlib.model.User;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserRepository {
 
-    @Insert("insert into user values(default, #{facebookId}, #{profile}, #{name}, \"false\")")
+    @Insert("insert into user values(default, #{facebookId}, #{profile}, #{name}, false)")
+    @Options(useGeneratedKeys = true, keyColumn = "id")
     void insert(User user);
 
     @Select("select * from user where id=#{id} limit 1")
@@ -16,4 +15,7 @@ public interface UserRepository {
 
     @Select("select * from user where facebook_id=#{facebookId} limit 1")
     User selectByFacebookId(User user);
+
+    @Delete("delete from user where id=#{id}")
+    void delete(User user);
 }

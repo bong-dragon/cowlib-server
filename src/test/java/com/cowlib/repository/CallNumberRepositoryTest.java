@@ -27,10 +27,9 @@ public class CallNumberRepositoryTest {
         CallNumber callNumber = createSampleCallNumer();
 
         // When
-        int key = callNumberRepository.insert(callNumber);
+        callNumberRepository.insert(callNumber);
 
         // Then
-        callNumber.setId(key);
         CallNumber inserted = callNumberRepository.select(callNumber);
         assertThat(inserted).isEqualTo(callNumber);
 
@@ -42,10 +41,9 @@ public class CallNumberRepositoryTest {
     public void select() {
         // Given
         CallNumber callNumber = createSampleCallNumer();
-        int key = callNumberRepository.insert(callNumber);
+        callNumberRepository.insert(callNumber);
 
         // When
-        callNumber.setId(key);
         CallNumber inserted = callNumberRepository.select(callNumber);
 
         // Then
@@ -59,10 +57,9 @@ public class CallNumberRepositoryTest {
     public void delete() {
         // Given
         CallNumber callNumber = createSampleCallNumer();
-        int key = callNumberRepository.insert(callNumber);
+        callNumberRepository.insert(callNumber);
 
         // When
-        callNumber.setId(key);
         callNumberRepository.delete(callNumber);
 
         // Then
@@ -72,7 +69,6 @@ public class CallNumberRepositoryTest {
 
     private CallNumber createSampleCallNumer() {
         CallNumber callNumber = new CallNumber();
-        callNumber.setId(1);
         callNumber.setOwnerId(1);
         callNumber.setBookId(1);
         return callNumber;

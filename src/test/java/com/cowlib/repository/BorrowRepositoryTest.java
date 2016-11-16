@@ -27,10 +27,9 @@ public class BorrowRepositoryTest {
         Borrow borrow = createSampleBorrow();
 
         // When
-        int key = borrowRepository.insert(borrow);
+        borrowRepository.insert(borrow);
 
         // Then
-        borrow.setId(key);
         Borrow inserted = borrowRepository.select(borrow);
         assertThat(inserted).isEqualTo(borrow);
 
@@ -42,10 +41,9 @@ public class BorrowRepositoryTest {
     public void select() {
         // Given
         Borrow borrow = createSampleBorrow();
-        int key = borrowRepository.insert(borrow);
+        borrowRepository.insert(borrow);
 
         // When
-        borrow.setId(key);
         Borrow inserted = borrowRepository.select(borrow);
 
         // Then
@@ -59,10 +57,9 @@ public class BorrowRepositoryTest {
     public void delete() {
         // Given
         Borrow borrow = createSampleBorrow();
-        int key = borrowRepository.insert(borrow);
+        borrowRepository.insert(borrow);
 
         // When
-        borrow.setId(key);
         borrowRepository.delete(borrow);
 
         // Then
@@ -74,10 +71,9 @@ public class BorrowRepositoryTest {
     public void update() {
         // Given
         Borrow borrow = createSampleBorrow();
-        int key = borrowRepository.insert(borrow);
+        borrowRepository.insert(borrow);
 
         // When
-        borrow.setId(key);
         borrow.setStatus("HOME");
         borrowRepository.update(borrow);
 
