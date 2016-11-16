@@ -1,20 +1,25 @@
 package com.cowlib.client;
 
-import com.cowlib.model.Book;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+import com.cowlib.model.Book;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class DaumBookClient {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final String APIS_DAUM_NET = "apis.daum.net";
     private static final String HTTPS = "https";
     private static final String SEARCH_BOOK = "/search/book";
@@ -32,9 +37,17 @@ public class DaumBookClient {
     }
 
     public List<Book> search(String q) {
+        logger.info("query: {}",q);
         String uri = buildUri(q);
-        String jsonString = restTemplate.getForObject(uri, String.class);
 
+        try {
+            uri = URLDecoder.decode(uri, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        logger.info("uri: {}", uri);
+        String jsonString = restTemplate.getForObject(uri, String.class);
+        logger.info("response: {}", jsonString);
         return parse(jsonString);
     }
 
