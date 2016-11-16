@@ -8,7 +8,7 @@ public interface CallNumberRepository {
 
     @Insert("insert into call_number values(default, #{ownerId}, #{bookId}, #{isDeleted})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(CallNumber callNumber);
+    void insert(CallNumber callNumber);
 
     @Select("select * from call_number where id=#{id}")
     CallNumber select(CallNumber callNumber);

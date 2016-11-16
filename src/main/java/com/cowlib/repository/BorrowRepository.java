@@ -8,7 +8,7 @@ public interface BorrowRepository {
 
     @Insert("insert into borrow_history values(default, #{callNumberId}, #{borrowerId}, #{status}, default)")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(Borrow borrow);
+    void insert(Borrow borrow);
 
     @Select("select * from borrow_history where id=#{id}")
     Borrow select(Borrow borrow);
