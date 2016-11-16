@@ -8,7 +8,7 @@ import com.cowlib.model.User;
 @Mapper
 public interface UserRepository {
 
-    @Insert("insert into user values(default, #{facebookId}, #{profile}, #{name}, \"false\")")
+    @Insert("insert into user values(default, #{facebookId}, #{profile}, #{name}, false)")
     void insert(User user);
 
     @Select("select * from user where id=#{id} limit 1")
