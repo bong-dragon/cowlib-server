@@ -27,10 +27,9 @@ public class WaitRepositoryTest {
         Wait wait = createSampleWait();
 
         // When
-        int key = waitRepository.insert(wait);
+        waitRepository.insert(wait);
 
         // Then
-        wait.setId(key);
         Wait inserted = waitRepository.select(wait);
         assertThat(inserted).isEqualTo(wait);
 
@@ -42,10 +41,9 @@ public class WaitRepositoryTest {
     public void select() {
         // Given
         Wait wait = createSampleWait();
-        int key = waitRepository.insert(wait);
+        waitRepository.insert(wait);
 
         // When
-        wait.setId(key);
         Wait inserted = waitRepository.select(wait);
 
         // Then
@@ -59,10 +57,9 @@ public class WaitRepositoryTest {
     public void delete() {
         // Given
         Wait wait = createSampleWait();
-        int key = waitRepository.insert(wait);
+        waitRepository.insert(wait);
 
         // When
-        wait.setId(key);
         waitRepository.delete(wait);
 
         // Then
@@ -74,10 +71,9 @@ public class WaitRepositoryTest {
     public void update() {
         // Given
         Wait borrow = createSampleWait();
-        int key = waitRepository.insert(borrow);
+        waitRepository.insert(borrow);
 
         // When
-        borrow.setId(key);
         borrow.setStatus("CANCEL");
         waitRepository.update(borrow);
 

@@ -8,7 +8,7 @@ public interface WaitRepository {
 
     @Insert("insert into wait_history values(default, #{callNumberId}, #{waiterId}, #{status}, default)")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(Wait wait);
+    void insert(Wait wait);
 
     @Select("select * from wait_history where id=#{id}")
     Wait select(Wait wait);
