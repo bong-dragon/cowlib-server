@@ -14,17 +14,19 @@ import com.cowlib.repository.BorrowRepository;
 public class BorrowController {
 
     @Autowired
-    BorrowRepository borrowRepository;
+    private BorrowRepository borrowRepository;
 
     @PostMapping
-    public void borrow(Borrow borrow) {
+    public Borrow borrow(Borrow borrow) {
         borrow.setStatus(BorrowStatus.빌려줌.getCode());
         borrowRepository.insert(borrow);
+        return borrow;
     }
 
     @DeleteMapping
-    public void returnBook(Borrow borrow) {
+    public Borrow returnBook(Borrow borrow) {
         borrow.setStatus(BorrowStatus.반납함.getCode());
         borrowRepository.update(borrow);
+        return borrow;
     }
 }

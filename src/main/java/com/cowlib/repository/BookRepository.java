@@ -9,6 +9,7 @@ public interface BookRepository {
     Book select(Book book);
 
     @Insert("insert into book values(default, #{isbn}, #{isbn13}, #{title}, #{author}, #{description}, #{publisher}, #{coverUrl})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Book book);
 
     @Delete("delete from book where isbn=#{isbn} or isbn13=#{isbn13}")
