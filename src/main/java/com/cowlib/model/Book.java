@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class Book {
-    int id;
-    String isbn;
-    String isbn13;
-    String title;
-    String author;
-    String description;
-    String publisher;
-    String coverUrl;
+    private int id;
+    private String isbn;
+    private String isbn13;
+    private String title;
+    private String author;
+    private String description;
+    private String publisher;
+    private String coverUrl;
 }

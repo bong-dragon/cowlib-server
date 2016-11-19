@@ -14,7 +14,7 @@ import com.cowlib.repository.BorrowRepository;
 public class BorrowController {
 
     @Autowired
-    BorrowRepository borrowRepository;
+    private BorrowRepository borrowRepository;
 
     @PostMapping
     public Borrow borrow(Borrow borrow) {

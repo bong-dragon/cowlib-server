@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class JsonStringConvertor {
+    private static ObjectMapper mapper = new ObjectMapper();
+
     public static Map<String, Object> convertJsonStringToMap(String jsonString) {
-        ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.readValue(jsonString, new TypeReference<Map<String, Object>>() {
             });
