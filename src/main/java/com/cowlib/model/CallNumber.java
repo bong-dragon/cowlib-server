@@ -6,6 +6,6 @@ import lombok.Data;
 public class CallNumber {
     private int id;
     private int ownerId;
-    private int bookId;
+    private int bookMetaId;
     private boolean isDeleted;
 }

@@ -2,6 +2,7 @@ package com.cowlib.repository;
 
 import com.cowlib.model.Wait;
 import org.apache.ibatis.annotations.*;
+import java.util.List;
 
 @Mapper
 public interface WaitRepository {
@@ -18,4 +19,7 @@ public interface WaitRepository {
 
     @Delete("delete from wait_history where id=#{id}")
     void delete(Wait wait);
+
+    @Select("select * from wait_history where id=#{callNumberId}")
+    List<Wait> selectByCallNumberId(int callNumberId);
 }

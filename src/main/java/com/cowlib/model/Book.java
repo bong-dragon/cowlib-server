@@ -2,14 +2,12 @@ package com.cowlib.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Book {
-    private int id;
-    private String isbn;
-    private String isbn13;
-    private String title;
-    private String author;
-    private String description;
-    private String publisher;
-    private String coverUrl;
+    private BookMeta bookMeta;
+    private List<Borrow> borrows;
+    private List<Wait> waits;
+
 }

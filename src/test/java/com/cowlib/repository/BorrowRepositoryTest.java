@@ -10,8 +10,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @TestPropertySource("/application-local.properties")
@@ -80,6 +81,15 @@ public class BorrowRepositoryTest {
         // Then
         Borrow updated = borrowRepository.select(borrow);
         assertThat(updated.getStatus()).isEqualTo("HOME");
+    }
+
+    @Test
+    public void selectByCallNumberId() {
+        // When
+        List<Borrow> borrows = borrowRepository.selectByCallNumberId(1);
+
+        // Then
+        assertThat(borrows.size()).isEqualTo(1);
     }
 
     private Borrow createSampleBorrow() {

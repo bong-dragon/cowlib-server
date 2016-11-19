@@ -1,6 +1,6 @@
 package com.cowlib.client;
 
-import com.cowlib.model.Book;
+import com.cowlib.model.BookMeta;
 import com.cowlib.util.PropertyFileLoader;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,10 +26,10 @@ public class DaumBookClientTest {
         DaumBookClient client = new DaumBookClient(apikey);
 
         // When
-        List<Book> books = client.search("Hello");
+        List<BookMeta> bookMetas = client.search("Hello");
 
         // Then
-        assertThat(books.size()).isEqualTo(10);
+        assertThat(bookMetas.size()).isEqualTo(10);
     }
 
 }
