@@ -1,12 +1,7 @@
 package com.cowlib.client;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.cowlib.exception.CowlibRuntimeException;
+import com.cowlib.model.BookMeta;
 import com.cowlib.util.JsonStringConvertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.cowlib.model.Book;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class DaumBookClient {
@@ -35,7 +35,7 @@ public class DaumBookClient {
         this.apikey = apikey;
     }
 
-    public List<Book> search(String q) {
+    public List<BookMeta> search(String q) {
         String url = BuildUrl(q);
         String jsonString = restTemplate.getForObject(url, String.class);
         return parse(jsonString);
@@ -62,7 +62,7 @@ public class DaumBookClient {
                 .toUriString();
     }
 
-    private List<Book> parse(String jsonString) {
+    private List<BookMeta> parse(String jsonString) {
         Map<String, Object> jsonMap = JsonStringConvertor.convertJsonStringToMap(jsonString);
         Map<String, Object> channel = (Map<String, Object>) jsonMap.get("channel");
         List<Map<String, Object>> booksFromDaum = (java.util.List<Map<String, Object>>) channel.get("item");
@@ -70,8 +70,8 @@ public class DaumBookClient {
         return convertToBook(booksFromDaum);
     }
 
-    private List<Book> convertToBook(List<Map<String, Object>> booksFromDaum) {
-        List<Book> books = new ArrayList<>();
+    private List<BookMeta> convertToBook(List<Map<String, Object>> booksFromDaum) {
+        List<BookMeta> bookMetas = new ArrayList<>();
         for (Map<String, Object> daumBook : booksFromDaum) {
             String isbn = (String) daumBook.get("isbn");
             String isbn13 = (String) daumBook.get("isbn13");
@@ -81,17 +81,17 @@ public class DaumBookClient {
             String publisher = (String) daumBook.get("pub_nm");
             String coverUrl = (String) daumBook.get("cover_l_url");
 
-            Book book = new Book();
-            book.setIsbn(isbn);
-            book.setIsbn13(isbn13);
-            book.setTitle(title);
-            book.setAuthor(author);
-            book.setDescription(description);
-            book.setPublisher(publisher);
-            book.setCoverUrl(coverUrl);
-            books.add(book);
+            BookMeta bookMeta = new BookMeta();
+            bookMeta.setIsbn(isbn);
+            bookMeta.setIsbn13(isbn13);
+            bookMeta.setTitle(title);
+            bookMeta.setAuthor(author);
+            bookMeta.setDescription(description);
+            bookMeta.setPublisher(publisher);
+            bookMeta.setCoverUrl(coverUrl);
+            bookMetas.add(bookMeta);
         }
-        return books;
+        return bookMetas;
     }
 
 }

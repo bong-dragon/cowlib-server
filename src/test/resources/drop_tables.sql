@@ -1,8 +1,8 @@
 use cowlib;
-DROP TABLE wait_history;
-DROP TABLE borrow_history;
-DROP TABLE call_number;
-DROP TABLE bookmark;
-DROP TABLE book;
-DROP TABLE user;
+DROP TABLE IF EXISTS wait_history;
+DROP TABLE IF EXISTS borrow_history;
+DROP TABLE IF EXISTS call_number;
+DROP TABLE IF EXISTS bookmark;
+DROP TABLE IF EXISTS book_meta;
+DROP TABLE IF EXISTS user;
 

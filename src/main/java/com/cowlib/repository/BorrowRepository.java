@@ -2,6 +2,7 @@ package com.cowlib.repository;
 
 import com.cowlib.model.Borrow;
 import org.apache.ibatis.annotations.*;
+import java.util.List;
 
 @Mapper
 public interface BorrowRepository {
@@ -18,4 +19,7 @@ public interface BorrowRepository {
 
     @Delete("delete from borrow_history where id=#{id}")
     void delete(Borrow borrow);
+
+    @Select("select * from borrow_history where id=#{callNumberId}")
+    List<Borrow> selectByCallNumberId(int callNumberId);
 }
