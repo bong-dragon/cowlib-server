@@ -14,7 +14,7 @@ import com.cowlib.repository.WaitRepository;
 public class WaitController {
 
     @Autowired
-    WaitRepository waitRepository;
+    private WaitRepository waitRepository;
 
     @PostMapping
     public Wait wait(Wait wait) {

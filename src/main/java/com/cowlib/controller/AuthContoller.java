@@ -15,7 +15,7 @@ public class AuthContoller {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @PostMapping
     public User loginFromNode(User user) {

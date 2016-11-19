@@ -6,7 +6,7 @@ public enum WaitStatus {
 	거절당함("REJECT"),
 	취소함("CANCEL");
 
-	String code;
+	private String code;
 
 	WaitStatus(String code) {
 		this.code = code;
