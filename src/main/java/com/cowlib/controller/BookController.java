@@ -17,10 +17,10 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    DaumBookClient client;
+    private DaumBookClient client;
 
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
 
 
     @GetMapping

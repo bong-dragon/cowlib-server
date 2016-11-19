@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class User {
-	int id;
-	String facebookId;
-	String profile;
-	String name;
+	private int id;
+	private String facebookId;
+	private String profile;
+	private String name;
+	private boolean isDeleted;
 }

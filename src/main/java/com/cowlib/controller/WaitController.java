@@ -14,17 +14,19 @@ import com.cowlib.repository.WaitRepository;
 public class WaitController {
 
     @Autowired
-    WaitRepository waitRepository;
+    private WaitRepository waitRepository;
 
     @PostMapping
-    public void wait(Wait wait) {
+    public Wait wait(Wait wait) {
         wait.setStatus(WaitStatus.대기함.getCode());
         waitRepository.insert(wait);
+        return wait;
     }
 
     @DeleteMapping
-    public void cancel(Wait wait) {
+    public Wait cancel(Wait wait) {
         wait.setStatus(WaitStatus.취소함.getCode());
         waitRepository.update(wait);
+        return wait;
     }
 }

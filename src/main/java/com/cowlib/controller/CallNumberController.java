@@ -13,8 +13,9 @@ public class CallNumberController {
     private CallNumberRepository callNumberRepository;
 
     @PostMapping
-    public void register(CallNumber callNumber) {
+    public CallNumber register(CallNumber callNumber) {
         callNumberRepository.insert(callNumber);
+        return callNumber;
     }
 
 }
