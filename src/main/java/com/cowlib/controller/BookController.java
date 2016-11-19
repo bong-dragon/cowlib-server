@@ -1,8 +1,7 @@
 package com.cowlib.controller;
 
-import com.cowlib.client.DaumBookClient;
 import com.cowlib.model.Book;
-import com.cowlib.repository.BookRepository;
+import com.cowlib.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,29 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/v1/books/search")
+@RequestMapping("/v1/books")
 public class BookController {
 
     @Autowired
-    private DaumBookClient client;
-
-    @Autowired
-    private BookRepository bookRepository;
-
+    BookService service;
 
     @GetMapping
-    public List<Book> search(@RequestParam(value = "q") String q) {
-        List<Book> books = client.search(q);
-
-        for (Book book : books) {
-            Book alreaySaved = bookRepository.select(book);
-
-            if (alreaySaved == null) {
-                bookRepository.insert(book);
-            }
-        }
-        return books;
+    public List<Book> getByOnwerId(@RequestParam(value = "ownerId") int ownerId) {
+        return service.findByOwnerId(ownerId);
     }
 }

@@ -10,8 +10,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @TestPropertySource("/application-local.properties")
@@ -67,10 +68,19 @@ public class CallNumberRepositoryTest {
         assertThat(deleted).isNull();
     }
 
+    @Test
+    public void selectByOwnerId() {
+        // When
+        List<CallNumber> callNumbers = callNumberRepository.selectByOwnerId(1);
+
+        // Then
+        assertThat(callNumbers.size()).isEqualTo(2);
+    }
+
     private CallNumber createSampleCallNumer() {
         CallNumber callNumber = new CallNumber();
         callNumber.setOwnerId(1);
-        callNumber.setBookId(1);
+        callNumber.setBookMetaId(1);
         return callNumber;
     }
 

@@ -10,6 +10,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -83,6 +85,15 @@ public class WaitRepositoryTest {
 
         // After
         waitRepository.delete(updated);
+    }
+
+    @Test
+    public void selectByCallNumberId() {
+        // When
+        List<Wait> waits = waitRepository.selectByCallNumberId(1);
+
+        // Then
+        assertThat(waits.size()).isEqualTo(1);
     }
 
     private Wait createSampleWait() {
