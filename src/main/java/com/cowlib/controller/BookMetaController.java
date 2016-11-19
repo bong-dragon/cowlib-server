@@ -1,15 +1,15 @@
 package com.cowlib.controller;
 
-import com.cowlib.client.DaumBookClient;
-import com.cowlib.model.BookMeta;
-import com.cowlib.repository.BookMetaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import com.cowlib.client.DaumBookClient;
+import com.cowlib.model.BookMeta;
+import com.cowlib.repository.BookMetaRepository;
 
 
 @RestController
@@ -31,7 +31,10 @@ public class BookMetaController {
 
             if (alreaySaved == null) {
                 bookMetaRepository.insert(bookMeta);
+            }else {
+                bookMeta = alreaySaved;
             }
+
         }
         return bookMetas;
     }
