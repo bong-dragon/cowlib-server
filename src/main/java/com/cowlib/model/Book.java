@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Book {
+    int id;
     String isbn;
     String isbn13;
     String title;
@@ -11,5 +12,4 @@ public class Book {
     String description;
     String publisher;
     String coverUrl;
-
 }
