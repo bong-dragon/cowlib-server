@@ -1,6 +1,7 @@
 package com.cowlib.repository;
 
 import com.Application;
+import com.cowlib.code.BorrowStatus;
 import com.cowlib.model.Borrow;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,9 +11,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @TestPropertySource("/application-local.properties")
@@ -85,18 +85,23 @@ public class BorrowRepositoryTest {
 
     @Test
     public void selectByCallNumberId() {
+        // Given
+        Borrow query = new Borrow();
+        query.setCallNumberId(1);
+        query.setStatus(BorrowStatus.빌려줌.getCode());
+
         // When
-        List<Borrow> borrows = borrowRepository.selectByCallNumberId(1);
+        Borrow borrow = borrowRepository.selectByCallNumberIdAndStatus(query);
 
         // Then
-        assertThat(borrows.size()).isEqualTo(1);
+        assertThat(borrow).isNotNull();
     }
 
     private Borrow createSampleBorrow() {
         Borrow borrow = new Borrow();
         borrow.setBorrowerId(1);
         borrow.setCallNumberId(1);
-        borrow.setStatus("BORROW");
+        borrow.setStatus(BorrowStatus.빌려줌.getCode());
         return borrow;
     }
 

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/libs/{ownerId}/callNumber")
+@RequestMapping("/v1/callNumbers")
 public class CallNumberController {
 
     @Autowired

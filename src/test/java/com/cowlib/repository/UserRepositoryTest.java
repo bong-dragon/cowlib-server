@@ -36,6 +36,14 @@ public class UserRepositoryTest {
         userRepository.delete(inserted);
     }
 
+
+    @Test
+    public void selectById() {
+        User user = userRepository.selectById(1);
+
+        assertThat(user.getId()).isEqualTo(1);
+    }
+
     private User createSampleUser() {
         User user = new User();
         user.setFacebookId("facebookId");
