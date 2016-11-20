@@ -9,4 +9,4 @@ insert into call_number values (DEFAULT, 1, 2, DEFAULT);
 
 insert into borrow_history values (DEFAULT, 1, 2, 'BORROW', DEFAULT);
 
-insert into wait_history values (DEFAULT, 2, 2, 'WAIT', DEFAULT);
+insert into reserve_history values (DEFAULT, 2, 2, 'RESERVE', DEFAULT );
