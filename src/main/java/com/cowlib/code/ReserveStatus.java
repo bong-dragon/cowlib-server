@@ -1,14 +1,14 @@
 package com.cowlib.code;
 
-public enum WaitStatus {
-	대기함("WAIT"),
+public enum ReserveStatus {
+	예약함("RESERVE"),
 	책빌림("DONE"),
 	거절당함("REJECT"),
 	취소함("CANCEL");
 
 	private String code;
 
-	WaitStatus(String code) {
+	ReserveStatus(String code) {
 		this.code = code;
 	}
 
