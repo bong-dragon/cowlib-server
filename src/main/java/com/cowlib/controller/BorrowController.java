@@ -14,16 +14,14 @@ public class BorrowController {
     private BorrowRepository borrowRepository;
 
     @PostMapping
-    public Borrow borrow(@PathVariable("callNumberId") int callNumberId, Borrow borrow) {
-        borrow.setCallNumberId(callNumberId);
+    public Borrow borrow(Borrow borrow) {
         borrow.setStatus(BorrowStatus.빌려줌.getCode());
         borrowRepository.insert(borrow);
         return borrow;
     }
 
     @DeleteMapping
-    public Borrow returnBook(@PathVariable("callNumberId") int callNumberId, Borrow borrow) {
-        borrow.setCallNumberId(callNumberId);
+    public Borrow returnBook(Borrow borrow) {
         borrow.setStatus(BorrowStatus.반납함.getCode());
         borrowRepository.update(borrow);
         return borrow;
