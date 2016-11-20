@@ -1,16 +1,13 @@
 package com.cowlib.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.cowlib.code.BorrowStatus;
 import com.cowlib.model.Borrow;
 import com.cowlib.repository.BorrowRepository;
 
 @RestController
-@RequestMapping("/v1/libs/{ownerId}/borrow")
+@RequestMapping("/v1/callNumbers/{callNumberId}/borrow")
 public class BorrowController {
 
     @Autowired
