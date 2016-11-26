@@ -2,6 +2,7 @@ package com.cowlib.client;
 
 import com.cowlib.exception.CowlibRuntimeException;
 import com.cowlib.model.BookMeta;
+import com.cowlib.model.BookMetaSearch;
 import com.cowlib.util.JsonStringConvertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +36,14 @@ public class DaumBookClient {
         this.apikey = apikey;
     }
 
-    public List<BookMeta> search(String q) {
-        String url = BuildUrl(q);
+    public List<BookMeta> search(BookMetaSearch search) {
+        String url = BuildUrl(search);
         String jsonString = restTemplate.getForObject(url, String.class);
         return parse(jsonString);
     }
 
-    private String BuildUrl(String q) {
-        String decodedUrl = buildEncodedUrl(q);
+    private String BuildUrl(BookMetaSearch search) {
+        String decodedUrl = buildEncodedUrl(search);
         try {
             decodedUrl = URLDecoder.decode(decodedUrl, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -51,14 +52,15 @@ public class DaumBookClient {
         return decodedUrl;
     }
 
-    private String buildEncodedUrl(String q) {
+    private String buildEncodedUrl(BookMetaSearch search) {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
         return builder.scheme(HTTPS)
                 .host(APIS_DAUM_NET)
                 .path(SEARCH_BOOK)
                 .queryParam("apikey", apikey)
                 .queryParam("output", "json")
-                .queryParam("q", q)
+                .queryParam("q", search.getQ())
+                .queryParam("pageno", search.getPageno())
                 .toUriString();
     }
 
