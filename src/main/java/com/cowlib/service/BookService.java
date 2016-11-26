@@ -37,6 +37,7 @@ public class BookService {
         List<Book> books = new ArrayList<>();
         for (CallNumber callNumber : callNumbers) {
             Book book = new Book();
+            book.setCallNumber(callNumber);
 
             BookMeta bookMeta = bookMetaRepository.selectById(callNumber.getBookMetaId());
             book.setBookMeta(bookMeta);
