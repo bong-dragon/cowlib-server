@@ -1,5 +1,6 @@
 package com.cowlib.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
@@ -14,10 +15,12 @@ public class BookMeta {
     private String publisher;
     private String coverUrl;
 
+    @JsonIgnore
     public boolean isEmptyIsbns() {
         return StringUtils.isEmpty(isbn) && StringUtils.isEmpty(isbn13);
     }
 
+    @JsonIgnore
     public boolean isEmptyIsbn13() {
         return StringUtils.isEmpty(isbn13);
     }
