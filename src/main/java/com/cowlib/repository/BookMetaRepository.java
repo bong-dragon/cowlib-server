@@ -17,4 +17,10 @@ public interface BookMetaRepository {
 
     @Select("select * from book_meta where id=#{id}")
     BookMeta selectById(int id);
+
+    @Select("select * from book_meta where isbn=#{isbn}")
+    BookMeta selectByIsbn(BookMeta bookMeta);
+
+    @Select("select * from book_meta where isbn13=#{isbn13}")
+    BookMeta selectByIsbn13(BookMeta bookMeta);
 }
