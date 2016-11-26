@@ -9,6 +9,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
     private BookMeta bookMeta;
+    private CallNumber callNumber;
     private User borrower;
     private List<User> reservers;
 }
