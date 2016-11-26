@@ -18,4 +18,11 @@ public class CallNumberController {
         return callNumber;
     }
 
+    @DeleteMapping
+    public CallNumber delete(CallNumber callNumber) {
+        callNumber.setDeleted(true);
+        callNumberRepository.update(callNumber);
+        return callNumber;
+    }
+
 }
