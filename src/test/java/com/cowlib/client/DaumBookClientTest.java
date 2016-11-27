@@ -1,14 +1,15 @@
 package com.cowlib.client;
 
-import com.cowlib.model.BookMeta;
-import com.cowlib.util.PropertyFileLoader;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 import java.util.Properties;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+import com.cowlib.model.BookMeta;
+import com.cowlib.model.BookMetaSearch;
+import com.cowlib.util.PropertyFileLoader;
 
 public class DaumBookClientTest {
 
@@ -24,9 +25,12 @@ public class DaumBookClientTest {
     public void search() throws Exception {
         // Given
         DaumBookClient client = new DaumBookClient(apikey);
+        BookMetaSearch bookMetaSearch = new BookMetaSearch();
+        bookMetaSearch.setQ("Hello");
+        bookMetaSearch.setPageno(1);
 
         // When
-        List<BookMeta> bookMetas = client.search("Hello");
+        List<BookMeta> bookMetas = client.search(bookMetaSearch);
 
         // Then
         assertThat(bookMetas.size()).isEqualTo(10);
