@@ -1,15 +1,24 @@
 package com.cowlib.service;
 
 
-import com.cowlib.code.BorrowStatus;
-import com.cowlib.code.ReserveStatus;
-import com.cowlib.model.*;
-import com.cowlib.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.cowlib.code.BorrowStatus;
+import com.cowlib.code.ReserveStatus;
+import com.cowlib.model.Book;
+import com.cowlib.model.BookMeta;
+import com.cowlib.model.Borrow;
+import com.cowlib.model.CallNumber;
+import com.cowlib.model.Reserve;
+import com.cowlib.model.User;
+import com.cowlib.repository.BookMetaRepository;
+import com.cowlib.repository.BorrowRepository;
+import com.cowlib.repository.CallNumberRepository;
+import com.cowlib.repository.ReserveRepository;
+import com.cowlib.repository.UserRepository;
 
 @Service
 public class BookService {
@@ -59,14 +68,14 @@ public class BookService {
         query.setStatus(ReserveStatus.예약함.getCode());
 
         List<Reserve> reserves = reserveRepository.selectByCallNumberIdAndStatus(query);
-
+        List<User> reservers = new ArrayList<>();
         if (reserves.isEmpty()) {
-            return null;
+            return reservers;
         }
 
-        List<User> reservers = new ArrayList<>();
         for (Reserve reserve : reserves) {
             User reserver = userRepository.selectById(reserve.getReserverId());
+            if (reserver == null) continue;
             reservers.add(reserver);
         }
         return reservers;
