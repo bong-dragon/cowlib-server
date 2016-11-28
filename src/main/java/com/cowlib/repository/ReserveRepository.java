@@ -17,6 +17,9 @@ public interface ReserveRepository {
     @Update("update reserve_history set status=#{status} where id=#{id}")
     void update(Reserve reserve);
 
+    @Update("update reserve_history set status=#{status} where id=#{callNumberId}")
+    void updateByCallNumberId(Reserve reserve);
+
     @Delete("delete from reserve_history where id=#{id}")
     void delete(Reserve reserve);
 
