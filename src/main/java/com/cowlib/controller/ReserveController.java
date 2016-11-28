@@ -23,7 +23,7 @@ public class ReserveController {
     @DeleteMapping
     public Reserve cancel(Reserve reserve) {
         reserve.setStatus(ReserveStatus.취소함.getCode());
-        reserveRepository.update(reserve);
+        reserveRepository.updateByCallNumberId(reserve);
         return reserve;
     }
 }
