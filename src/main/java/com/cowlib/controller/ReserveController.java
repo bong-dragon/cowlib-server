@@ -1,6 +1,7 @@
 package com.cowlib.controller;
 
 import com.cowlib.exception.AlreadyReservedCallNumberException;
+import com.cowlib.exception.NotReservedCallNumberException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class ReserveController {
 
     @DeleteMapping
     public Reserve cancel(Reserve reserve) {
+        reserve.setStatus(ReserveStatus.예약함.getCode());
+        Reserve reserved = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
+        if (reserved == null){
+            throw new NotReservedCallNumberException("not_reserved=" + reserve);
+        }
         reserve.setStatus(ReserveStatus.취소함.getCode());
         reserveRepository.updateByCallNumberId(reserve);
         return reserve;
