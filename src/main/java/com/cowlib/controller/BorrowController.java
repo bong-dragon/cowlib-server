@@ -1,6 +1,7 @@
 package com.cowlib.controller;
 
 import com.cowlib.exception.AlreadyBorrowedCallNumberException;
+import com.cowlib.exception.NotBorrowedCallNumberException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class BorrowController {
 
     @DeleteMapping
     public Borrow returnBook(Borrow borrow) {
+        borrow.setStatus(BorrowStatus.빌려줌.getCode());
+        Borrow borrowed = borrowRepository.selectByCallNumberIdAndStatus(borrow);
+
+        if (borrowed == null){
+            throw new NotBorrowedCallNumberException("not_borrowed=" + borrow);
+        }
         borrow.setStatus(BorrowStatus.반납함.getCode());
         borrowRepository.update(borrow);
         return borrow;
