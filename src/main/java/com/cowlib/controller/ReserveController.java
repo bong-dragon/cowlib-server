@@ -1,5 +1,6 @@
 package com.cowlib.controller;
 
+import com.cowlib.exception.AlreadyReservedCallNumberException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,10 @@ public class ReserveController {
     @PostMapping
     public Reserve reserve(Reserve reserve) {
         reserve.setStatus(ReserveStatus.예약함.getCode());
-        Reserve alreadyReserve = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
-        if (alreadyReserve != null){
-           logger.debug("{}님, {}을 이미 예약 하셨어요", alreadyReserve.getReserverId(), alreadyReserve.getCallNumberId());
-            return reserve;
+        Reserve alreadyReserved = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
+        if (alreadyReserved != null){
+            throw new AlreadyReservedCallNumberException("already_reserved=" + alreadyReserved);
         }
-
         reserveRepository.insert(reserve);
         return reserve;
     }
