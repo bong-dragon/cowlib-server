@@ -57,8 +57,9 @@ public class BorrowController {
         if (borrowed == null){
             throw new NotBorrowedCallNumberException("not_borrowed=" + borrow);
         }
-        borrow.setStatus(BorrowStatus.반납함.getCode());
-        borrowRepository.update(borrow);
+
+        borrowed.setStatus(BorrowStatus.반납함.getCode());
+        borrowRepository.update(borrowed);
         return borrow;
     }
 }
