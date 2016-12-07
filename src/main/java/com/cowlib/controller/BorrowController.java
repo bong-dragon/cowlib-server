@@ -1,12 +1,5 @@
 package com.cowlib.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.cowlib.code.BorrowStatus;
 import com.cowlib.code.ReserveStatus;
 import com.cowlib.exception.AlreadyBorrowedCallNumberException;
@@ -15,6 +8,13 @@ import com.cowlib.model.Borrow;
 import com.cowlib.model.Reserve;
 import com.cowlib.repository.BorrowRepository;
 import com.cowlib.repository.ReserveRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/callNumbers/{callNumberId}/borrow")
@@ -32,7 +32,7 @@ public class BorrowController {
         borrow.setStatus(BorrowStatus.빌려줌.getCode());
         Borrow alreadyBorrowed = borrowRepository.selectByCallNumberIdAndStatus(borrow);
 
-        if (alreadyBorrowed != null){
+        if (alreadyBorrowed != null) {
             throw new AlreadyBorrowedCallNumberException("already_borrowed=" + alreadyBorrowed);
         }
 
@@ -42,10 +42,12 @@ public class BorrowController {
         reserve.setStatus(ReserveStatus.예약함.getCode());
 
         reserve = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
-        reserve.setStatus(ReserveStatus.책빌림.getCode());
-        reserveRepository.update(reserve);
+        if (reserve != null) {
+            reserve.setStatus(ReserveStatus.책빌림.getCode());
+            reserveRepository.update(reserve);
+        }
 
-         borrowRepository.insert(borrow);
+        borrowRepository.insert(borrow);
         return borrow;
     }
 
@@ -54,7 +56,7 @@ public class BorrowController {
         borrow.setStatus(BorrowStatus.빌려줌.getCode());
         Borrow borrowed = borrowRepository.selectByCallNumberIdAndStatus(borrow);
 
-        if (borrowed == null){
+        if (borrowed == null) {
             throw new NotBorrowedCallNumberException("not_borrowed=" + borrow);
         }
 
