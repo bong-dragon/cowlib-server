@@ -3,6 +3,7 @@ package com.cowlib.controller;
 import com.cowlib.client.DaumBookClient;
 import com.cowlib.model.BookMeta;
 import com.cowlib.model.BookMetaSearch;
+import com.cowlib.model.BookMetaSearchResult;
 import com.cowlib.repository.BookMetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +25,10 @@ public class BookMetaController {
     private BookMetaRepository bookMetaRepository;
 
     @GetMapping
-    public List<BookMeta> search(BookMetaSearch search) {
-        List<BookMeta> searched = client.search(search);
+    public BookMetaSearchResult search(BookMetaSearch search) {
+        BookMetaSearchResult searchResult = client.search(search);
         List<BookMeta> saved = new ArrayList<>();
-        for (BookMeta bookMeta : searched) {
+        for (BookMeta bookMeta : searchResult.getBookMetas()) {
             if(bookMeta.isEmptyIsbns()){
                 continue;
             }
@@ -40,7 +41,9 @@ public class BookMetaController {
                 saved.add(bookMeta);
             }
         }
-        return saved;
+
+        searchResult.setBookMetas(saved);
+        return searchResult;
     }
 
     private BookMeta findBookMeta(BookMeta bookMeta) {
