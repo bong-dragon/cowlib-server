@@ -3,6 +3,7 @@ package com.cowlib.client;
 import com.cowlib.exception.CowlibRuntimeException;
 import com.cowlib.model.BookMeta;
 import com.cowlib.model.BookMetaSearch;
+import com.cowlib.model.BookMetaSearchResult;
 import com.cowlib.util.JsonStringConvertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public class DaumBookClient {
         this.apikey = apikey;
     }
 
-    public List<BookMeta> search(BookMetaSearch search) {
+    public BookMetaSearchResult search(BookMetaSearch search) {
         String url = BuildUrl(search);
         String jsonString = restTemplate.getForObject(url, String.class);
         return parse(jsonString);
@@ -64,12 +65,15 @@ public class DaumBookClient {
                 .toUriString();
     }
 
-    private List<BookMeta> parse(String jsonString) {
+    private BookMetaSearchResult parse(String jsonString) {
         Map<String, Object> jsonMap = JsonStringConvertor.convertJsonStringToMap(jsonString);
         Map<String, Object> channel = (Map<String, Object>) jsonMap.get("channel");
-        List<Map<String, Object>> booksFromDaum = (java.util.List<Map<String, Object>>) channel.get("item");
 
-        return convertToBook(booksFromDaum);
+        int totalCount = Integer.parseInt((String) channel.get("totalCount"));
+        List<Map<String, Object>> booksFromDaum = (java.util.List<Map<String, Object>>) channel.get("item");
+        List<BookMeta> bookMetas = convertToBook(booksFromDaum);
+
+        return new BookMetaSearchResult(bookMetas, totalCount);
     }
 
     private List<BookMeta> convertToBook(List<Map<String, Object>> booksFromDaum) {
