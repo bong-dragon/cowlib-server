@@ -11,10 +11,7 @@ import com.cowlib.repository.ReserveRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/callNumbers/{callNumberId}/borrow")
@@ -41,7 +38,7 @@ public class BorrowController {
         reserve.setReserverId(borrow.getBorrowerId());
         reserve.setStatus(ReserveStatus.예약함.getCode());
 
-        reserve = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
+        reserve = reserveRepository.selectOneByCallNumberIdAndReserverIdAndStatusOrderById(reserve);
         if (reserve != null) {
             reserve.setStatus(ReserveStatus.책빌림.getCode());
             reserveRepository.update(reserve);
@@ -52,6 +49,32 @@ public class BorrowController {
     }
 
     @DeleteMapping
+    public Borrow cancelBorrow(Borrow borrow) {
+        borrow.setStatus(BorrowStatus.빌려줌.getCode());
+        Borrow borrowed = borrowRepository.selectByCallNumberIdAndStatus(borrow);
+
+        if (borrowed == null) {
+            throw new NotBorrowedCallNumberException("not_borrowed=" + borrow);
+        }
+
+        borrowed.setStatus(BorrowStatus.빌려줌취소.getCode());
+        borrowRepository.update(borrowed);
+
+        Reserve reserve = new Reserve();
+        reserve.setCallNumberId(borrow.getCallNumberId());
+        reserve.setReserverId(borrow.getBorrowerId());
+        reserve.setStatus(ReserveStatus.책빌림.getCode());
+
+        reserve = reserveRepository.selectOneByCallNumberIdAndReserverIdAndStatusOrderById(reserve);
+        if (reserve != null) {
+            reserve.setStatus(ReserveStatus.예약함.getCode());
+            reserveRepository.update(reserve);
+        }
+
+        return borrowed;
+    }
+
+    @PutMapping
     public Borrow returnBook(Borrow borrow) {
         borrow.setStatus(BorrowStatus.빌려줌.getCode());
         Borrow borrowed = borrowRepository.selectByCallNumberIdAndStatus(borrow);

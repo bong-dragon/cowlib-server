@@ -1,14 +1,9 @@
 package com.cowlib.repository;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import com.cowlib.model.Reserve;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface ReserveRepository {
@@ -20,8 +15,8 @@ public interface ReserveRepository {
     @Select("select * from reserve_history where id=#{id}")
     Reserve select(Reserve reserve);
 
-    @Select("select * from reserve_history where call_number_id=#{callNumberId} and reserver_id=#{reserverId} and status=#{status}")
-    Reserve selectByCallNumberIdAndReserverIdAndStatus(Reserve reserve);
+    @Select("select * from reserve_history where call_number_id=#{callNumberId} and reserver_id=#{reserverId} and status=#{status} order by id desc limit 1")
+    Reserve selectOneByCallNumberIdAndReserverIdAndStatusOrderById(Reserve reserve);
 
     @Update("update reserve_history set status=#{status} where id=#{id}")
     void update(Reserve reserve);
