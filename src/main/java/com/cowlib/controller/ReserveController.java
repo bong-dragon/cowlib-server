@@ -24,7 +24,7 @@ public class ReserveController {
     @PostMapping
     public Reserve reserve(Reserve reserve) {
         reserve.setStatus(ReserveStatus.예약함.getCode());
-        Reserve alreadyReserved = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
+        Reserve alreadyReserved = reserveRepository.selectOneByCallNumberIdAndReserverIdAndStatusOrderById(reserve);
         if (alreadyReserved != null){
             throw new AlreadyReservedCallNumberException("already_reserved=" + alreadyReserved);
         }
@@ -35,7 +35,7 @@ public class ReserveController {
     @DeleteMapping
     public Reserve cancel(Reserve reserve) {
         reserve.setStatus(ReserveStatus.예약함.getCode());
-        Reserve reserved = reserveRepository.selectByCallNumberIdAndReserverIdAndStatus(reserve);
+        Reserve reserved = reserveRepository.selectOneByCallNumberIdAndReserverIdAndStatusOrderById(reserve);
         if (reserved == null){
             throw new NotReservedCallNumberException("not_reserved=" + reserve);
         }
