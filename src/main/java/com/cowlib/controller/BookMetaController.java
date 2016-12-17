@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -42,7 +43,10 @@ public class BookMetaController {
             }
         }
 
-        searchResult.setBookMetas(saved);
+        // 검색 결과에 있는 중복된 내용 제거
+        List<BookMeta> uniqueBookMetas = new ArrayList<>(new HashSet<>(saved));
+
+        searchResult.setBookMetas(uniqueBookMetas);
         return searchResult;
     }
 
