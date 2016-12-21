@@ -1,22 +1,22 @@
 package com.cowlib.client;
 
-import com.cowlib.exception.CowlibRuntimeException;
-import com.cowlib.model.BookMeta;
-import com.cowlib.model.BookMetaSearch;
-import com.cowlib.model.BookMetaSearchResult;
-import com.cowlib.util.JsonStringConvertor;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.cowlib.exception.CowlibRuntimeException;
+import com.cowlib.model.BookMeta;
+import com.cowlib.model.BookMetaSearch;
+import com.cowlib.model.BookMetaSearchResult;
+import com.cowlib.util.JsonStringConvertor;
 
 @Component
 public class DaumBookClient {
@@ -90,14 +90,18 @@ public class DaumBookClient {
             BookMeta bookMeta = new BookMeta();
             bookMeta.setIsbn(isbn);
             bookMeta.setIsbn13(isbn13);
-            bookMeta.setTitle(title);
-            bookMeta.setAuthor(author);
-            bookMeta.setDescription(description);
-            bookMeta.setPublisher(publisher);
+            bookMeta.setTitle(filter(title));
+            bookMeta.setAuthor(filter(author));
+            bookMeta.setDescription(filter(description));
+            bookMeta.setPublisher(filter(publisher));
             bookMeta.setCoverUrl(coverUrl);
             bookMetas.add(bookMeta);
         }
         return bookMetas;
+    }
+
+    private String filter(String word) {
+        return word.replaceAll("&lt;b&gt;", "").replaceAll("&lt;/b&gt;", "");
     }
 
 }
