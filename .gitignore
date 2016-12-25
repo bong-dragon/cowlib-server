@@ -1,9 +1,11 @@
 # custom
 
+cowlib.mwb.bak
 .idea/
 *.iml
 
-
+application-local.properties
+application-prod.properties
 
 
 # Created by https://www.gitignore.io/api/in,intellij,gradle,java

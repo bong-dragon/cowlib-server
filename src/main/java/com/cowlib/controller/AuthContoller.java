@@ -1,45 +1,31 @@
 package com.cowlib.controller;
 
-import com.cowlib.model.User;
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.cowlib.model.User;
+import com.cowlib.repository.UserRepository;
 
-@Controller
-@RequestMapping("/auth")
+@RestController
+@RequestMapping("/v1/auth")
 public class AuthContoller {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private UserRepository userRepository;
 
-	private Facebook facebook;
-	private ConnectionRepository connectionRepository;
-
-	public AuthContoller(Facebook facebook, ConnectionRepository connectionRepository) {
-		this.facebook = facebook;
-		this.connectionRepository = connectionRepository;
-	}
-
-	@RequestMapping("/greeting")
-	@ResponseBody
-	public User greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-		User user = new User();
-		user.setId(123);
-		return user;
-	}
-
-	@GetMapping
-	@ResponseBody
-	public org.springframework.social.facebook.api.User login(Model model) {
-		if (connectionRepository.findPrimaryConnection(Facebook.class) == null) {
-//			return "redirect:/connect/facebook";
-			return null;
-		}
-		return facebook.userOperations().getUserProfile();
-	}
-
+    @PostMapping
+    public User loginFromNode(User user) {
+        User select = userRepository.selectByFacebookId(user);
+        if (select == null) {
+            logger.debug("new user insert to db");
+            userRepository.insert(user);
+            select = userRepository.selectByFacebookId(user);
+        }
+        return select;
+    }
 
 }
