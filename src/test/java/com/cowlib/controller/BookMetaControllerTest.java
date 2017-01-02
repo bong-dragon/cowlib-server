@@ -47,7 +47,6 @@ private static final Logger LOGGER = LoggerFactory.getLogger(BookMetaControllerT
 
         ObjectMapper objectMapper = new ObjectMapper();
         BookMetaSearchResult bookMetaSearchResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), BookMetaSearchResult.class);
-        LOGGER.info("b={}", bookMetaSearchResult);
 
         assertThat(bookMetaSearchResult.getBookMetas()).isNotEmpty();
         assertThat(bookMetaSearchResult.getTotalCount()).isGreaterThan(0);
