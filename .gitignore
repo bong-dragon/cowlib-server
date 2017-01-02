@@ -5,7 +5,8 @@ cowlib.mwb.bak
 *.iml
 
 application-local.properties
-application-prod.properties
+application-test.properties
+application-real.properties
 
 
 # Created by https://www.gitignore.io/api/in,intellij,gradle,java
