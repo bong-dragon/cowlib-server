@@ -1,24 +1,15 @@
 package com.cowlib.service;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.cowlib.code.BorrowStatus;
 import com.cowlib.code.ReserveStatus;
-import com.cowlib.model.Book;
-import com.cowlib.model.BookMeta;
-import com.cowlib.model.Borrow;
-import com.cowlib.model.CallNumber;
-import com.cowlib.model.Reserve;
-import com.cowlib.model.User;
-import com.cowlib.repository.BookMetaRepository;
-import com.cowlib.repository.BorrowRepository;
-import com.cowlib.repository.CallNumberRepository;
-import com.cowlib.repository.ReserveRepository;
-import com.cowlib.repository.UserRepository;
+import com.cowlib.model.*;
+import com.cowlib.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -41,7 +32,7 @@ public class BookService {
 
     public List<Book> findByOwnerId(int ownerId) {
 
-        List<CallNumber> callNumbers = callNumberRepository.selectByOwnerId(ownerId);
+        List<CallNumber> callNumbers = callNumberRepository.selectByOwnerId(ownerId, false);
 
         List<Book> books = new ArrayList<>();
         for (CallNumber callNumber : callNumbers) {

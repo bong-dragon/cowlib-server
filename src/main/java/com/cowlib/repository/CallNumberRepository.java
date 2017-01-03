@@ -16,8 +16,8 @@ public interface CallNumberRepository {
     @Delete("delete from call_number where id=#{id}")
     void delete(CallNumber callNumber);
 
-    @Select("select * from call_number where owner_id=#{ownerId} and is_deleted=false")
-    List<CallNumber> selectByOwnerId(int ownerId);
+    @Select("select * from call_number where owner_id=#{ownerId} and is_deleted=#{isDeleted}")
+    List<CallNumber> selectByOwnerId(@Param("ownerId") int ownerId, @Param("isDeleted") boolean isDeleted);
 
     @Update("update call_number set is_deleted=#{isDeleted} where id=#{id}")
     void update(CallNumber callNumber);
