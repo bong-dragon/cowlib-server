@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user id="1" facebook_id="1002237446564959" profile="https://profile" name="테스터" is_deleted="0"/>
+    <book_meta id="5" isbn="8931448287" isbn13="9788931448283" title="Java Basic" author="가나다" description="자바 입문서" publisher="한빛미디어" cover_url="https://t1.search.daumcdn.net/thumb/R110x160/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fbook%2FKOR9788968481475%3Fmoddttm=20161025060331"/>
+    <book_meta id="6" isbn="8931448288" isbn13="9788931448284" title="Java Advanced" author="가나다" description="자바 심화" publisher="한빛미디어" cover_url="https://t1.search.daumcdn.net/thumb/R110x160/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fbook%2FKOR9788968481475%3Fmoddttm=20161025060331"/>
+    <call_number id="10" owner_id="1" book_meta_id="5" is_deleted="0"/>
+    <borrow_history id="1" call_number_id="10" borrower_id="1" status="HOME" />
+    <reserve_history id="1" call_number_id="10" reserver_id="1" status="RESERVE" />
+</dataset>

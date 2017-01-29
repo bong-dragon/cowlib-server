@@ -15,5 +15,6 @@ public class BookMetaSearchResult {
         this.totalCount = totalCount;
     }
 
-
+    public BookMetaSearchResult() {
+    }
 }
