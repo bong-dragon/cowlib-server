@@ -1,14 +1,11 @@
 package com.cowlib.controller;
 
-import com.Application;
-import com.cowlib.model.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import static org.assertj.core.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +18,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.Application;
+import com.cowlib.model.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -41,6 +43,7 @@ public class AuthContollerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(authContoller).build();
     }
 
+    @Ignore
     @Test
     @DatabaseSetup(value = "/dbunit/empty.xml", type = DatabaseOperation.CLEAN_INSERT)
     @ExpectedDatabase(value = "/dbunit/old_user.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
@@ -58,6 +61,7 @@ public class AuthContollerTest {
         assertThat(user.getFacebookId()).isEqualTo("1002237446564959");
     }
 
+    @Ignore
     @Test
     @DatabaseSetup(value = "/dbunit/old_user.xml", type = DatabaseOperation.CLEAN_INSERT)
     @ExpectedDatabase(value = "/dbunit/old_user.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
